@@ -59,16 +59,7 @@ registrationForm.addEventListener('submit', async (event) => {
             return;
         } 
         
-        if (!validateBirthDate(createdDate)) {
-            alert('Please enter a valid Create date.');
-            return;
-        }
-
-        if (!validateBirthDate(dateOfBirth)) {
-            alert('Please enter a valid Brithday.');
-            return;
-        }
-
+       
 
 
 
@@ -119,15 +110,6 @@ registrationForm.addEventListener('submit', async (event) => {
         return passwordRegex.test(password);
     }
 
-    function validateBirthDate(dateOfBirth) {
-        // Add your birthdate validation logic here
-        return true; // You can implement custom logic to validate the birthdate format or range
-    }
-
-    function validateBirthDate(createdDate) {
-        // Add your birthdate validation logic here
-        return true; // You can implement custom logic to validate the birthdate format or range
-    }
 
       
     </script>
