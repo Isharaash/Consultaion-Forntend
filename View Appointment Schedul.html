@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Table</title>
+    <style>
+        /* Add some CSS styles for the scrollable div */
+        #scrollableTable {
+            max-height: 400px; /* Set your desired height */
+            overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+        }
+    </style>
+</head>
+<body>
+   <!-- Wrap the table body in a scrollable div -->
+   <div id="scrollableTable">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="eventTableBody">
+            <!-- Data will be inserted here dynamically -->
+        </tbody>
+    </table>
+</div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://localhost:8080/api/v1/AllSchedulet")
+        .then(response => response.json())
+        .then(data => {
+            const eventTableBody = document.getElementById("eventTableBody");
+
+            if (data.code === "00") {
+                data.content.forEach(event => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${event.id}</td>
+                        <td>${event.name}</td>
+                        <td>${event.date}</td>
+                        <td>${event.time}</td>
+                        <td>${event.status}</td>
+                    `;
+                    eventTableBody.appendChild(row);
+                });
+            } else {
+                console.error("API returned an error message: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching data: " + error));
+});
+
+
+
+
+    </script>
+</body>
+</html>

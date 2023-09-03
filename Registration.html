@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" ><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" ><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" ><br>
+
+    
+        <label for="role">Role:</label>
+        <select id="role" required>
+      <option value="USER">User</option>
+      <option value="ADMIN">Admin</option>
+      <option value="COUNSELOR">Counselor</option>
+      </select><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+
+    <script >
+const registrationForm = document.getElementById('registrationForm');
+
+registrationForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const name = document.getElementById('name').value;
+    const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
+
+    if (!validateEmail(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
+        if (!validateName(name)) {
+            alert('Name must be at least 3 characters long.');
+            return;
+        }
+
+
+        if (!validatePassword(password)) {
+            alert('Password must be at least 8 characters long and contain a number, a lowercase letter, and an uppercase letter.');
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            alert('Password must be at least 8 characters long and contain a number, a lowercase letter, and an uppercase letter.');
+            return;
+        } 
+        
+        if (!validateBirthDate(createdDate)) {
+            alert('Please enter a valid Create date.');
+            return;
+        }
+
+        if (!validateBirthDate(dateOfBirth)) {
+            alert('Please enter a valid Brithday.');
+            return;
+        }
+
+
+
+
+
+
+ 
+
+
+
+    try {
+                const response = await fetch('http://localhost:8080/api/v1/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+
+        email,
+        name,
+        password,
+        role
+    }),
+                });
+
+                if (response.ok) {
+                    alert('User registered successfully.');
+                } else {
+                    alert('Error registering user.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while registering user.');
+            }
+        });
+
+        function validateEmail(email) {
+        // Add your email validation logic here
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validateName(name) {
+        return name.length >= 3;
+    }
+
+    function validatePassword(password) {
+        // Add your password validation logic here
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return passwordRegex.test(password);
+    }
+
+    function validateBirthDate(dateOfBirth) {
+        // Add your birthdate validation logic here
+        return true; // You can implement custom logic to validate the birthdate format or range
+    }
+
+    function validateBirthDate(createdDate) {
+        // Add your birthdate validation logic here
+        return true; // You can implement custom logic to validate the birthdate format or range
+    }
+
+      
+    </script>
+</body>
+</html>

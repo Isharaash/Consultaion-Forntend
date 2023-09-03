@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search and Update Employee Details</title>
+</head>
+<body>
+    <h1>Search and Update Employee Details</h1>
+    <form id="searchForm">
+        <label for="searchInput">Enter Employee ID:</label>
+        <input type="text" id="searchInput" placeholder="Employee ID" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="searchResult">
+        <!-- Display search results here -->
+    </div>
+
+    <h2>Update Employee Details</h2>
+    <form id="updateForm">
+        <label for="idInput">ID:</label>
+        <input type="text" id="idInput" readonly>
+        <label for="fNameInput">First Name:</label>
+        <input type="text" id="fNameInput" placeholder="New First Name">
+        <label for="mNameInput">Middle Name:</label>
+        <input type="text" id="mNameInput" placeholder="New Middle Name">
+        <label for="lNamedInput">Last Name:</label>
+        <input type="text" id="lNamedInput" placeholder="New Last Name">
+        <label for="addressInput">Address:</label>
+        <input type="text" id="addressInput" placeholder="New Address">
+        <label for="ageInput">Age:</label>
+        <input type="text" id="ageInput" placeholder="New Age">
+        <label for="dobInput">Date of Birth:</label>
+        <input type="text" id="dobInput" placeholder="New Date of Birth">
+        <label for="sexInput">Sex:</label>
+        <input type="text" id="sexInput" placeholder="New Sex">
+        <label for="emailInput">Email:</label>
+        <input type="text" id="emailInput" placeholder="New Email">
+        <label for="phoneInput">Phone:</label>
+        <input type="text" id="phoneInput" placeholder="New Phone">
+        <button type="submit">Update</button>
+    </form>
+    <h2>Delete Employee</h2>
+    <button id="deleteButton">Delete Employee</button>
+    
+    <script>
+        const searchForm = document.getElementById('searchForm');
+        const searchResultDiv = document.getElementById('searchResult');
+        const updateForm = document.getElementById('updateForm');
+        const deleteButton = document.getElementById('deleteButton');
+
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const searchInput = document.getElementById('searchInput').value;
+
+            // Send a GET request to search for an employee by ID
+            fetch(`http://localhost:8080/api/v1/searchEmployee/${searchInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous search results
+                    searchResultDiv.innerHTML = '';
+
+                    if (data.code === "00" && data.message === "Success") {
+                        const employee = data.content;
+                        const employeeDetails ="";
+                        searchResultDiv.innerHTML = employeeDetails;
+
+                        // Populate the update form with employee data
+                        document.getElementById('idInput').value = employee.id;
+                        document.getElementById('fNameInput').value = employee.fName;
+                        document.getElementById('mNameInput').value = employee.mName;
+                        document.getElementById('lNamedInput').value = employee.lNamed;
+                        document.getElementById('addressInput').value = employee.address;
+                        document.getElementById('ageInput').value = employee.age;
+                        document.getElementById('dobInput').value = employee.dob;
+                        document.getElementById('sexInput').value = employee.sex || '';
+                        document.getElementById('emailInput').value = employee.email;
+                        document.getElementById('phoneInput').value = employee.phone;
+                    } else {
+                        searchResultDiv.innerHTML = '<p>No employee found with the given ID.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error searching for employee:', error);
+                });
+        });
+
+        updateForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('idInput').value;
+            const fName = document.getElementById('fNameInput').value;
+            const mName = document.getElementById('mNameInput').value;
+            const lNamed = document.getElementById('lNamedInput').value;
+            const address = document.getElementById('addressInput').value;
+            const age = document.getElementById('ageInput').value;
+            const dob = document.getElementById('dobInput').value;
+            const sex = document.getElementById('sexInput').value;
+            const email = document.getElementById('emailInput').value;
+            const phone = document.getElementById('phoneInput').value;
+
+            // Construct the update data object
+            const updateData = {
+                id,
+                fName,
+                mName,
+                lNamed,
+                address,
+                age,
+                dob,
+                sex,
+                email,
+                phone
+            };
+
+            // Send a PUT request to update the details
+            fetch(`http://localhost:8080/api/v1/updateEmployee`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                // Clear form fields after successful update
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error updating data:', error);
+            });
+        });
+
+        deleteButton.addEventListener('click', function() {
+            const searchInput = document.getElementById('searchInput').value;
+
+            // Send a DELETE request to delete the employee
+            fetch(`http://localhost:8080/api/v1/deleteEmployee/${searchInput}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                // Clear form fields and search result after successful delete
+                updateForm.reset();
+                searchResultDiv.innerHTML = '';
+                // Disable the delete button again
+                deleteButton.disabled = true;
+            })
+            .catch(error => {
+                console.error('Error deleting employee:', error);
+            });
+        });
+    </script>
+</body>
+</html>

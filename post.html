@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sender</title>
+</head>
+<body>
+    <h1>Email Sender</h1>
+    
+    <form id="emailForm">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+
+        <label for="tomail">Recipient Email:</label>
+        <input type="email" id="tomail" name="tomail" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Send Email</button>
+    </form>
+    
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const mailDTO = {
+                subject: document.getElementById('subject').value,
+                tomail: document.getElementById('tomail').value,
+                message: document.getElementById('message').value
+            };
+
+            fetch('http://localhost:8080/api/v1/emailSend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(mailDTO),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Failed to send email');
+                    }
+                })
+                .then(data => {
+                  
+                    console.log(data);
+                    alert('E-mail Sent successfully.');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>
