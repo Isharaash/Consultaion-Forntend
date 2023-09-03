@@ -2,29 +2,46 @@
 <html>
 <head>
     <title>User Registration</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>User Registration</h1>
-    <form id="registrationForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" ><br>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">CareerConnect</h2>
+            </div>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" ><br>
+            <div class="menu">
+                <ul>
+                    <li><a href="Home.html">HOME</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                    <li><a href="Login.html">LOGIN</a></li>
+                </ul>
+            </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" ><br>
+        </div> 
 
-    
-        <label for="role">Role:</label>
-        <select id="role" required>
-      <option value="USER">User</option>
-      <option value="ADMIN">Admin</option>
-      <option value="COUNSELOR">Counselor</option>
-      </select><br><br>
 
-        <button type="submit">Register</button>
+     <div class="form">
+        <form id="registrationForm">
+        <h2>SIGN UP HERE</h2>
+        <input type="text" id="name" placeholder="Enter Name Here">
+        <input type="email" id="email" placeholder="Enter Email Here">
+        <input type="password" id="password" placeholder="Enter Password Here">
+        <input type="hidden" id="role" value="USER"> 
+        <button class="btnn" type="submit"><a>Register</a></button>
     </form>
+        
+      
+
+    </div>
+      </div>
+    
+
+    </div> 
+
+
 
 
     <script >
@@ -38,36 +55,8 @@ registrationForm.addEventListener('submit', async (event) => {
     const password = document.getElementById('password').value;
     const role = document.getElementById('role').value;
 
-    if (!validateEmail(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-
-        if (!validateName(name)) {
-            alert('Name must be at least 3 characters long.');
-            return;
-        }
-
-
-        if (!validatePassword(password)) {
-            alert('Password must be at least 8 characters long and contain a number, a lowercase letter, and an uppercase letter.');
-            return;
-        }
-
-        if (!validatePassword(password)) {
-            alert('Password must be at least 8 characters long and contain a number, a lowercase letter, and an uppercase letter.');
-            return;
-        } 
-        
-       
-
-
-
-
-
- 
-
-
+    
+    
 
     try {
                 const response = await fetch('http://localhost:8080/api/v1/create', {
@@ -86,6 +75,7 @@ registrationForm.addEventListener('submit', async (event) => {
 
                 if (response.ok) {
                     alert('User registered successfully.');
+                    window.location.href = 'Login.html';
                 } else {
                     alert('Error registering user.');
                 }
@@ -95,20 +85,6 @@ registrationForm.addEventListener('submit', async (event) => {
             }
         });
 
-        function validateEmail(email) {
-        // Add your email validation logic here
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function validateName(name) {
-        return name.length >= 3;
-    }
-
-    function validatePassword(password) {
-        // Add your password validation logic here
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        return passwordRegex.test(password);
-    }
 
 
       
