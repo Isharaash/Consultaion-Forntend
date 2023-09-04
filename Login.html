@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login Form</title>
+    <script src="App.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +17,8 @@
                     <li><a href="Home.html">HOME</a></li>
                     <li><a href="#">ABOUT US</a></li>
                     <li><a href="#">CONTACT</a></li>
-                    <li><a href="#">LOGIN</a></li>
+                    <li><a href="Login.html">LOGIN</a></li>
+                    <li><a href="Registration.html">SIGN UP</a></li>
                 </ul>
             </div>
 
@@ -43,60 +45,5 @@
     </div>
 
 
-
-
- 
-    <script >
-
-function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const credentials = {
-        email: email,
-        password: password
-    };
-
-    // Sending a POST request to the Spring Boot API
-    fetch('http://localhost:8080/api/v1/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            // Store the token in localStorage or sessionStorage
-            localStorage.setItem('token', data.token);
-
-            // Redirect the user to the appropriate page based on their role
-            if (data.role === 'USER') {
-                alert('Login successful User '+ data.name);
-                window.location.href = 'user.html';
-            } 
-            else if (data.role === 'ADMIN'){
-                alert('Login successful Admin '+ data.name);
-                window.location.href = 'admin.html';
-            }
-            else if (data.role === 'COUNSELOR'){
-                alert('Login successful Counselor '+ data.name);
-                window.location.href = 'counselor.html';
-            }
-        } else {
-            alert('Login failed. Please check your credentials.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred during login.');
-    });
-}
-
-
-
-
-    </script>
 </body>
 </html>

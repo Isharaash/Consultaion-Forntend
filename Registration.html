@@ -2,92 +2,46 @@
 <html>
 <head>
     <title>User Registration</title>
+
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <div class="main">
-        <div class="navbar">
-            <div class="icon">
-                <h2 class="logo">CareerConnect</h2>
-            </div>
+       
+            <div class="navbar">
+                <div class="icon">
+                    <h2 class="logo">CareerConnect</h2>
+                </div>
+    
+                <div class="menu">
+                    <ul>
+                        <li><a href="Home.html">HOME</a></li>
+                        <li><a href="#">ABOUT US</a></li>
+                        <li><a href="#">CONTACT</a></li>
+                        <li><a href="Login.html">LOGIN</a></li>
+                        <li><a href="Registration.html">SIGN UP</a></li>
+                    </ul>
+                </div>
+    
+            </div> 
 
-            <div class="menu">
-                <ul>
-                    <li><a href="Home.html">HOME</a></li>
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">CONTACT</a></li>
-                    <li><a href="Login.html">LOGIN</a></li>
-                </ul>
-            </div>
-
-        </div> 
-
-
-     <div class="form">
-        <form id="registrationForm">
-        <h2>SIGN UP HERE</h2>
-        <input type="text" id="name" placeholder="Enter Name Here">
-        <input type="email" id="email" placeholder="Enter Email Here">
-        <input type="password" id="password" placeholder="Enter Password Here">
-        <input type="hidden" id="role" value="USER"> 
-        <button class="btnn" type="submit"><a>Register</a></button>
-    </form>
-        
-      
-
+        <div class="form">
+            <form id="registrationForm">
+                <h2>SIGN UP HERE</h2>
+                <input type="text" id="name" placeholder="Enter Name Here">
+                <input type="email" id="email" placeholder="Enter Email Here">
+                <input type="password" id="password" placeholder="Enter Password Here">
+                <input type="password" id="confirmPassword" placeholder="Enter Confirm Password Here">
+                <p id="passwordMatchError" style="color: red;"></p>
+                <input type="hidden" id="role" value="USER"> 
+                <button class="btnn" type="submit"><a>Register</a></button>
+            </form>
+        </div>
     </div>
-      </div>
+
+    <script src="App.js"></script>
     
-
-    </div> 
-
-
-
-
-    <script >
-const registrationForm = document.getElementById('registrationForm');
-
-registrationForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const name = document.getElementById('name').value;
-    const password = document.getElementById('password').value;
-    const role = document.getElementById('role').value;
-
-    
-    
-
-    try {
-                const response = await fetch('http://localhost:8080/api/v1/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-
-        email,
-        name,
-        password,
-        role
-    }),
-                });
-
-                if (response.ok) {
-                    alert('User registered successfully.');
-                    window.location.href = 'Login.html';
-                } else {
-                    alert('Error registering user.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while registering user.');
-            }
-        });
-
-
-
-      
-    </script>
 </body>
 </html>
+

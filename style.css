@@ -52,8 +52,8 @@ ul{
 ul li{
     list-style: none;
     margin-left: 75px;
-    margin-top: 27px;
-    font-size: 16px;
+    margin-top: 30px;
+    font-size: 13px;
 }
 
 ul li a{
@@ -202,7 +202,7 @@ ul li a:hover{
     height: 40px;
     background: #ff7200;
     border: none;
-    margin-top: 40px;
+    margin-top: 25px;
     font-size: 18px;
     border-radius: 10px;
     cursor: pointer;
