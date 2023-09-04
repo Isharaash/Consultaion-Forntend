@@ -139,9 +139,9 @@ function login() {
                 alert('Login successful Admin '+ data.name);
                 window.location.href = 'admin.html';
             }
-            else if (data.role === 'COUNSELOR'){
+            else if (data.role === 'CONSULTANTS'){
                 alert('Login successful Counselor '+ data.name);
-                window.location.href = 'counselor.html';
+                window.location.href = 'consultant.html';
             }
         } else {
             alert('Login failed. Please check your credentials.');

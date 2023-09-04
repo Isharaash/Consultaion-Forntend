@@ -1,3 +1,5 @@
+
+
 *{
     margin: 0;
     padding: 0;
@@ -106,8 +108,6 @@ ul li a:hover{
    
     
 }
-
-
 
 
 .btn{
@@ -290,3 +290,101 @@ ul li a:hover{
 .icons ion-icon:hover{
     color: #ff7200;
 }
+
+----------------Userdashboard------------
+
+  
+
+body {
+font-family: "Lato", sans-serif;
+background-color: darkslategray;
+}
+
+h3 {
+
+text-align: right;
+color: #FFFFFF;
+margin-top: -55px;
+margin-right: 150px;
+}
+
+
+
+.sidenav {
+height: 80%;
+width: 250px;
+position: fixed;
+opacity: 0.8;
+background-color: #010a2763;
+padding-top: 15px;
+font-size: 15px;
+top: 15%;
+
+}
+
+.sidenav a {
+padding: 10px 5px 6px 32px;
+text-decoration:dotted;
+font-size: 18px;
+color: #ffffff;
+display: block;
+text-align: justify;
+margin: 8px;
+}
+
+.sidenav a:hover {
+color: #ff7200;
+}
+.sidenav2 {
+    height: 50%;
+    width: 250px;
+    position: fixed;
+    opacity: 0.8;
+    background-color: #010a2763;
+    padding-top: 15px;
+    font-size: 15px;
+    top: 25%;
+    
+    }
+    
+    .sidenav2 a {
+    padding: 10px 5px 6px 32px;
+    text-decoration:dotted;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+    text-align: justify;
+    margin: 8px;
+  
+    }
+    
+    .sidenav2 a:hover {
+    color: #ff7200;
+    }
+
+    .sidenav3 {
+        height: 50%;
+        width: 250px;
+        position: fixed;
+        opacity: 0.8;
+        background-color: #010a2763;
+        padding-top: 15px;
+        font-size: 15px;
+        top: 25%;
+        
+        }
+        
+        .sidenav3 a {
+        padding: 10px 5px 6px 32px;
+        text-decoration:dotted;
+        font-size: 18px;
+        color: #ffffff;
+        display: block;
+        text-align: justify;
+        margin: 8px;
+      
+        }
+        
+        .sidenav3 a:hover {
+        color: #ff7200;
+        }
