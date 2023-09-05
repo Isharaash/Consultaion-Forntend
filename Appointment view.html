@@ -1,53 +1,71 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Generation</title>
+    <link rel="stylesheet" href="style3.css">
 </head>
 <body>
-    <h1>View details Details</h1>
-    <div>
-        <label for="searchInput">Search by ID:</label>
-        <input type="text" id="searchInput" placeholder="Enter ID">
-        <button id="searchButton">Search</button>
+    <div class="search">
+        <input class="srch" type="search" id="searchInput" placeholder="Type To text">
+        <button id="searchButton" class="btn">Search</button>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Age</th>
-                <th>Date of Birth</th>
-                <th>Sex</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody id="data"></tbody>
-    </table>
+
+    <div class="table_responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Full Name</th>
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Birthday</th>
+                    <th>Gender</th>
+                    <th>Job Type</th>
+                    <th>Country</th>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                    <th>E-mail</th>
+                    <th>Phone Number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="data">
+                <!-- Table rows will be generated here -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        // Fetch data from the Spring Boot API
-        fetch('http://localhost:8080/api/v1/getAllEmployees')
+           fetch('http://localhost:8080/api/v1/getAllAppointment')
     .then(response => response.json())
     .then(data => {
         const tableBody = document.getElementById('data');
-        data.content.forEach(item => {
+        data.content.forEach(event => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.fName}</td>
-                <td>${item.mName}</td>
-                <td>${item.lName}</td>
-                <td>${item.address}</td>
-                <td>${item.age}</td>
-                <td>${item.dob}</td>
-                <td>${item.sex || 'N/A'}</td>
-                <td>${item.email}</td>
-                <td>${item.phone}</td>
+                                         <td>${event.id}</td>
+                                        <td>${event.fName}</td>
+                                        <td>${event.address}</td>
+                                        <td>${event.age}</td>
+                                        <td>${event.dob}</td>
+                                        <td>${event.sex}</td>
+                                        <td>${event.category}</td>
+                                        <td>${event.country}</td>
+                                        <td>${event.date}</td>
+                                        <td>${event.time}</td>
+                                        <td>${event.email}</td>
+                                        <td>${event.phone}</td>
+                                        <td>
+                                            <span class="action_btn">
+                                                <a href="#">Edit</a>
+                                                <a href="#">Remove</a>
+                                            </span>
+                                        </td>
+
             `;
             tableBody.appendChild(row);
         });
@@ -56,7 +74,8 @@
         console.error('Error fetching data:', error);
     });
 
-            document.getElementById('searchButton').addEventListener('click', () => {
+    
+    document.getElementById('searchButton').addEventListener('click', () => {
             const searchId = document.getElementById('searchInput').value;
             if (!searchId) {
                 alert('Please enter an ID to search.');
@@ -64,25 +83,33 @@
             }
 
             // Fetch data from the Spring Boot API based on the search ID
-            fetch(`http://localhost:8080/api/v1/searchEmployee/${searchId}`)
+            fetch(`http://localhost:8080/api/v1/searchAppointment/${searchId}`)
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('data');
                     tableBody.innerHTML = ''; // Clear previous search results
                     if (data.content) {
-                        const item = data.content;
+                        const event = data.content;
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${item.id}</td>
-                            <td>${item.fName}</td>
-                            <td>${item.mName}</td>
-                            <td>${item.lNamed}</td>
-                            <td>${item.address}</td>
-                            <td>${item.age}</td>
-                            <td>${item.dob}</td>
-                            <td>${item.sex || 'N/A'}</td>
-                            <td>${item.email}</td>
-                            <td>${item.phone}</td>
+                        <td>${event.id}</td>
+                                        <td>${event.fname}</td>
+                                        <td>${event.address}</td>
+                                        <td>${event.age}</td>
+                                        <td>${event.dob}</td>
+                                        <td>${event.sex}</td>
+                                        <td>${event.category}</td>
+                                        <td>${event.country}</td>
+                                        <td>${event.date}</td>
+                                        <td>${event.time}</td>
+                                        <td>${event.email}</td>
+                                        <td>${event.phone}</td>
+                                        <td>
+                                            <span class="action_btn">
+                                                <a href="#">Edit</a>
+                                                <a href="#">Remove</a>
+                                            </span>
+                                        </td>
                         `;
                         tableBody.appendChild(row);
                     } else {
@@ -93,6 +120,10 @@
                     console.error('Error fetching data:', error);
                 });
         });
+   
+
+
+        
     </script>
 </body>
 </html>
