@@ -19,8 +19,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Consultant Name</th>
-                    <th>Availble Date</th>
-                    <th>Availble Day</th>
+                    <th>Available Date</th>
+                    <th>Available Day</th>
                     <th>Time (From)</th>
                     <th>Time (To)</th>
                     <th>Job Type</th>
@@ -49,10 +49,10 @@
                         <td>${event.ftime}</td>
                         <td>${event.ttime}</td>
                         <td>${event.category}</td>
-                      <td>
+                        <td>
                             <span class="action_btn">
-                                <a href="#">Edit</a>
-                                <a href="#">Remove</a>
+                               
+                                <a href="#" class="delete-button">Remove</a>
                             </span>
                         </td>
                     `;
@@ -80,17 +80,17 @@
                         const event = data.content;
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                        <td>${event.id}</td>
-                        <td>${event.name}</td>
-                        <td>${event.date}</td>
-                        <td>${event.day}</td>
-                        <td>${event.ftime}</td>
-                        <td>${event.ttime}</td>
-                        <td>${event.category}</td>
+                            <td>${event.id}</td>
+                            <td>${event.name}</td>
+                            <td>${event.date}</td>
+                            <td>${event.day}</td>
+                            <td>${event.ftime}</td>
+                            <td>${event.ttime}</td>
+                            <td>${event.category}</td>
                             <td>
                                 <span class="action_btn">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Remove</a>
+                                   
+                                    <a href="#" class="delete-button">Remove</a>
                                 </span>
                             </td>
                         `;
@@ -103,7 +103,38 @@
                     console.error('Error fetching data:', error);
                 });
         });
-        
+
+        // Add an event listener to handle delete button clicks
+        document.getElementById('data').addEventListener('click', (event) => {
+            if (event.target && event.target.tagName.toLowerCase() === 'a' && event.target.classList.contains('delete-button')) {
+                const row = event.target.closest('tr');
+                const searchId = row.querySelector('td:first-child').textContent; // Assuming the ID is in the first column
+                deleteSchedule(searchId);
+            }
+        });
+
+        function deleteSchedule(searchId) {
+            // Send a DELETE request to delete the schedule by ID
+            fetch(`http://localhost:8080/api/v1/deleteSchedulet/${searchId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Deleted successfully') {
+                    alert('Schedule deleted successfully.');
+                    // Remove the row from the table on successful delete
+                    const rowToDelete = document.querySelector(`#data td:first-child:contains('${searchId}')`).closest('tr');
+                    rowToDelete.remove();
+                
+                } else {
+                    alert('Schedule deleted successfully.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting schedule:', error);
+            });
+        }
+
         // Add an event listener to the "Back" button to navigate back
         document.getElementById('backButton').addEventListener('click', () => {
             window.history.back(); // This will go back to the previous page in the browser's history.

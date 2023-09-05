@@ -1,0 +1,159 @@
+<!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Management System</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <section class="container">
+        <header>Update Schedule Form</header>
+        <form id="searchForm">
+        <div class="search">
+            <input class="srch" type="search" id="searchInput" placeholder="Enter Employee ID">
+            <button id="searchButton" class="btn">Search</button>
+        </div>
+      </form>
+        <form id="updateForm" class="form">
+          <div class="input-box">
+            <label>Consultant Name</label>
+            <input type="text" id="id" placeholder="Enter your name">
+        </div>
+
+            <div class="input-box">
+                <label>Consultant Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            <div class="input-box">
+                <label>Your Date</label>
+                <input type="date" id="date" required>
+            </div>
+         
+            <div class="select-box">
+                <select id="day">
+                    <option value="" hidden>Select the day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                </select>
+            </div>
+          </div>
+            <div class="column">
+                <div class="input-box">
+                    <label>Select your time</label><br>
+                    <label>From</label>
+                    <input type="time" id="ftime" placeholder="Enter the time">
+                </div>
+                <div class="input-box">
+                    <br><label>To</label>
+                    <input type="time" id="ttime" placeholder="Enter the time">
+                </div>
+            </div>
+            <div class="select-box">
+                
+                <select id="category">
+                    <option value="" hidden>Select category</option>
+                    <option>Finance</option>
+                    <option>Health Care</option>
+                    <option>Management</option>
+                    <option>IT</option>
+                    <option>Human Resources</option>
+                    <option>Sales</option>
+                    <option>Teacher</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+            <button type="button" id="backButton">Back</button>
+        </form>
+        <div id="searchResult"></div>
+    </section>
+    <script>
+      const searchForm = document.getElementById('searchForm');
+      const searchResultDiv = document.getElementById('searchResult');
+const updateForm = document.getElementById('updateForm');
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const searchInput = document.getElementById('searchInput').value;
+
+            // Send a GET request to search for an employee by ID
+            fetch(`http://localhost:8080/api/v1/searchSchedulet/${searchInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear previous search results
+                    searchResultDiv.innerHTML = '';
+
+                    if (data.code === "00" && data.message === "Success") {
+                        const employee = data.content;
+                        const employeeDetails ="";
+                        searchResultDiv.innerHTML = employeeDetails;
+
+                        document.getElementById('id').value = employee.id;
+                        document.getElementById('name').value = employee.name;
+                        document.getElementById('date').value = employee.date;
+                        document.getElementById('day').value = employee.day;
+                        document.getElementById('ftime').value = employee.ftime;
+                        document.getElementById('ttime').value = employee.ttime;
+                        document.getElementById('category').value = employee.category;
+  
+                      } else {
+                       alert(" Can't found with the given ID.")
+                    }
+                })
+                .catch(error => {
+                    console.error('Error searching for employee:', error);
+                });
+        });
+        updateForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('id').value;
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const day = document.getElementById('day').value;
+            const ftime = document.getElementById('ftime').value;
+            const ttime = document.getElementById('ttime').value;
+            const category = document.getElementById('category').value;
+
+
+            // Construct the update data object
+            const updateData = {
+                id,
+                name,
+                date,
+                day,
+                ftime,
+                ttime,
+                category,
+                
+            };
+
+            // Send a PUT request to update the details
+            fetch(`http://localhost:8080/api/v1/updateSchedulet`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Update successfully");
+                // Clear form fields after successful update
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error updating data:', error);
+               
+            });
+        });
+
+    
+  </script>
+  
+</body>
+</html>
+
