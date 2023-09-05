@@ -210,7 +210,32 @@ return;
             }
         });
 
+        function deleteSchedule(searchId) {
+            // Send a DELETE request to delete the schedule by ID
+            fetch(`http://localhost:8080/api/v1/deleteAppointment/${searchId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Deleted successfully') {
+                    alert('Schedule deleted successfully.');
+                    // Remove the row from the table on successful delete
+                    const rowToDelete = document.querySelector(`#data td:first-child:contains('${searchId}')`).closest('tr');
+                    rowToDelete.remove();
+                
+                } else {
+                    alert('Schedule deleted successfully.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting schedule:', error);
+            });
+        }
 
+        // Add an event listener to the "Back" button to navigate back
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // This will go back to the previous page in the browser's history.
+        });
 
 
 

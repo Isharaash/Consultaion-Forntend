@@ -62,8 +62,8 @@
                         <td>${event.phone}</td>
                         <td>
                             <span class="action_btn">
-                                <a href="#">Edit</a>
-                                <a href="#">Remove</a>
+                                
+                                <a href="#" class="delete-button">Remove</a>
                             </span>
                         </td>
                     `;
@@ -105,8 +105,8 @@
                             <td>${event.phone}</td>
                             <td>
                                 <span class="action_btn">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Remove</a>
+                                    
+                                    <a href="#" class="delete-button">Remove</a>
                                 </span>
                             </td>
                         `;
@@ -119,6 +119,36 @@
                     console.error('Error fetching data:', error);
                 });
         });
+        // Add an event listener to handle delete button clicks
+        document.getElementById('data').addEventListener('click', (event) => {
+            if (event.target && event.target.tagName.toLowerCase() === 'a' && event.target.classList.contains('delete-button')) {
+                const row = event.target.closest('tr');
+                const searchId = row.querySelector('td:first-child').textContent; // Assuming the ID is in the first column
+                deleteSchedule(searchId);
+            }
+        });
+        function deleteSchedule(searchId) {
+            // Send a DELETE request to delete the schedule by ID
+            fetch(`http://localhost:8080/api/v1/deleteAppointment/${searchId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Deleted successfully') {
+                    alert('Schedule deleted successfully.');
+                    // Remove the row from the table on successful delete
+                    const rowToDelete = document.querySelector(`#data td:first-child:contains('${searchId}')`).closest('tr');
+                    rowToDelete.remove();
+                
+                } else {
+                    alert('Schedule deleted successfully.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting schedule:', error);
+            });
+        }
+
         
         // Add an event listener to the "Back" button to navigate back
         document.getElementById('backButton').addEventListener('click', () => {

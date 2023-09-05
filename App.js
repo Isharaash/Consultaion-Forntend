@@ -139,7 +139,7 @@ function login() {
                 alert('Login successful Admin '+ data.name);
                 window.location.href = 'admin.html';
             }
-            else if (data.role === 'CONSULTANTS'){
+            else if (data.role === 'CONSULTANT'){
                 alert('Login successful Counselor '+ data.name);
                 window.location.href = 'consultant.html';
             }
