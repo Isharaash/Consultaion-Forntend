@@ -30,6 +30,9 @@
             <select id="day">
               <option hidden>Select the day</option>
               <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
               <option>Friday</option>
              </select>
           </div>
@@ -44,9 +47,17 @@
               <input type="time" id="ttime" placeholder="Enter birth date"  />
             </div>
           </div>
-          <div class="input-box">
-            <label>Job </label>
-            <input type="text" id="category" placeholder="Category"/>
+          <div class="select-box">
+            <select id="category">
+              <option hidden>Select the day</option>
+              <option>Finace</option>
+              <option>Health Care</option>
+              <option>Managemt</option>
+              <option>IT</option>
+              <option>Human Resources</option>
+              <option>Sales</option>
+              <option>Teacher</option>
+             </select>
           </div>
 
 
@@ -74,7 +85,7 @@ SchedulForm.addEventListener('submit', async (event) => {
     const day= document.getElementById('day').value;
     const  ftime= document.getElementById('ftime').value;
    const ttime= document.getElementById('ttime').value;
-    const  category = document.getElementById('category').value;
+    const  category= document.getElementById('category').value;
    
        
 // Validation
@@ -98,8 +109,8 @@ alert('Please enter both start and end times.');
 return;
 }
 
-if (category.trim() === '') {
-alert('Please enter a job category.');
+if (category === 'hidden') {
+alert('Please select a day.');
 return;
 }
    
@@ -117,7 +128,7 @@ return;
                         day,
                         ftime,
                         ttime,
-                       category,
+                        category,
                        
     }),
                 });
