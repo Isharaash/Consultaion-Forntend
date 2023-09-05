@@ -2,95 +2,182 @@
 <html>
 <head>
     <title>User Registration</title>
+    <link rel="stylesheet" href="style2.css">
+ 
 </head>
 <body>
-    <h1>User Registration</h1>
-    <form id="registrationForm">
-        <label for="fName">Frist Name:</label>
-        <input type="text" id="fName" required><br>
+    <section class="container">
+        <header>Add Appointment Form</header>
+        <form  id="AppointmentForm" class="form">
 
-        <label for="mName">Middle Name:</label>
-        <input type="text" id="mName" required><br>
+          <div class="input-box">
+            <label>Full Name</label>
+            <input type="text" id="fName"  placeholder="Enter your name" />
+          </div>
 
-        <label for="lNamed">Last name Name:</label>
-        <input type="text" id="lNamed" required><br>
+          <div class="input-box">
+            <label>Address</label>
+            <input type="text" id="address"  placeholder="Enter your address" />
+          </div>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" required><br>
+          <div class="column">
+            <div class="input-box">
+                <label>Age</label>
+                <input type="number" id="age"  placeholder="Enter your age" />
+              </div>
+            <div class="input-box">
+            <label>Birthdate</label>
+              <input type="time" id="dob" placeholder="Enter the time"  />
+            </div>
+            <div class="input-box">
+            <label>Sex</label>
+            <div class="select-box">
+                <select id="sex">
+                      <option hidden>Select</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                    </div>
+                </div>
+          </div>
+          <div class="input-box">
+            <label>Your Job Type</label>
+          <div class="select-box">
+        <select id="category">
+              <option hidden>Select the Job Type</option>
+              <option>Finace</option>
+              <option>Health Care</option>
+              <option>Managemt</option>
+              <option>IT</option>
+              <option>Human Resources</option>
+              <option>Sales</option>
+              <option>Teacher</option>
+             </select>
+          </div>
+          </div>
+      
+          <div class="input-box">
+            <label>Your Country</label>
+          <div class="select-box">
+            <select id="country">
+              <option hidden>Select the Country</option>
+              <option>USA</option>
+              <option>Japan</option>
+              <option>Oman</option>
+              <option>United States</option>
+              <option>Korea</option>
+              <option>Malaysia</option>
+              <option>Pakisthan</option>
+             </select>
+          </div>
+          </div>
+          <div class="column">
+            <div class="input-box">
+              <label>Select Appointment Date</label><br>
+            
+              <input type="date" id="date" placeholder="Enter the time"  />
+            </div>
+            <div class="input-box">
+             <label>Select Appointment Time</label>
+              <input type="time" id="time" placeholder="Enter birth date"  />
+            </div>
+          </div>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" required><br>
+          <div class="input-box">
+            <label>Your E-mail</label>
+            <input type="email" id="email"  placeholder="Enter your name" />
+          </div>
 
-        <label for="dateOfBirth">Birthdate:</label>
-        <input type="date" id="dob" required><br>
+          <div class="input-box">
+            <label>Your Phone Number</label>
+            <input type="tel" id="phone"  placeholder="Enter your name" />
+          </div>
 
-        <label for="sex">Sex:</label>
-        <input type="text" id="sex" required><br><br>
+         <button type="submit">Submit</button>
+          <button id="backButton">Back</button>
+        </form>
+      </section>
+    
+    
+      <script >
+const AppointmentForm= document.getElementById('AppointmentForm');
+const backButton = document.getElementById('backButton');
 
-        <div id="scrollableTable">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="eventTableBody">
-                    <!-- Data will be inserted here dynamically -->
-                </tbody>
-            </table>
-        </div><br><br>
-
-        
+backButton.addEventListener('click', () => {
+window.history.back(); // This will go back to the previous page in the browser's history.
+});
 
 
-        <label for="date">Book Date:</label>
-        <input type="date" id="date" required> <br>
-
-        <label for="time">Book Time:</label>
-        <input type="time" id="time" required> <br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br>
-       
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" required><br>
-       
-        <label for="date">Book number:</label>
-        <input type="text" id="schedule" required> <br>
-
-        <button type="submit">Register</button>
-    </form>
-
-
-    <script >
-const registrationForm = document.getElementById('registrationForm');
-
-registrationForm.addEventListener('submit', async (event) => {
+AppointmentForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const fName = document.getElementById('fName').value;
-    const mName= document.getElementById('mName').value;
-    const  lNamed = document.getElementById('lNamed').value;
-   const address= document.getElementById('address').value;
-    const age = document.getElementById('age').value;
-    const dob = document.getElementById('dob').value;
-    const sex = document.getElementById('sex').value;
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
-   const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
+    const address= document.getElementById('address').value;
+    const age= document.getElementById('age').value;
+    const  dob= document.getElementById('dob').value;
+   const sex= document.getElementById('sex').value;
+    const  category= document.getElementById('category').value;
+    const country= document.getElementById('country').value;
+    const date= document.getElementById('date').value;
+    const  time= document.getElementById('time').value;
+   const email= document.getElementById('email').value;
+    const  phone= document.getElementById('phone').value;
    
-   
+       
+// Validation
+if (fName.trim() === '') {
+alert('Please enter your full name.');
+return;
+}
+if (address.trim() === '') {
+alert('Please enter your address.');
+return;
+}
+if (age.trim() === '') {
+alert('Please enter your age.');
+return;
+}
+
+if (dob.trim() === '') {
+alert('Please select Brithday.');
+return;
+}
+
+if (sex === 'hidden') {
+alert('Please select sex.');
+return;
+}
 
 
+if (category === 'hidden') {
+alert('Please select the job category.');
+return;
+}
 
+if (country === 'hidden') {
+alert('Please select the country.');
+return;
+}
+if (date.trim() === '') {
+alert('Please select a date.');
+return;
+}
+
+if (time.trim() === '') {
+alert('Please select a time.');
+return;
+}
+if (email.trim() === '') {
+alert('Please enter your E-mail.');
+return;
+}
+if (phone.trim() === '') {
+alert('Please enter your phone number.');
+return;
+}
 
     try {
-                const response = await fetch('http://localhost:8080/api/v1/saveEmployee', {
+                const response = await fetch('http://localhost:8080/api/v1/CreateAppointment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,12 +185,12 @@ registrationForm.addEventListener('submit', async (event) => {
                     body: JSON.stringify({
 
                         fName,
-                        mName,
-                        lNamed,
                         address,
                         age,
                         dob,
                         sex,
+                        category,
+                        country,
                         date,
                         time,
                         email,
@@ -113,40 +200,28 @@ registrationForm.addEventListener('submit', async (event) => {
                 });
 
                 if (response.ok) {
-                    alert('User registered successfully.');
+                    alert('Schedule added successfully.');
                 } else {
-                    alert('Error registering user.');
+                    alert('Error Schedule.');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred while registering user.');
+               
             }
         });
-        document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost:8080/api/v1/AllSchedulet")
-        .then(response => response.json())
-        .then(data => {
-            const eventTableBody = document.getElementById("eventTableBody");
 
-            if (data.code === "00") {
-                data.content.forEach(event => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${event.id}</td>
-                        <td>${event.name}</td>
-                        <td>${event.date}</td>
-                        <td>${event.time}</td>
-                       
-                    `;
-                    eventTableBody.appendChild(row);
-                });
-            } else {
-                console.error("API returned an error message: " + data.message);
-            }
-        })
-        .catch(error => console.error("Error fetching data: " + error));
-});
+
+
+
+
+
+      </script>
         
-    </script>
+             
+        
+    
+    
+    
+   
 </body>
 </html>
