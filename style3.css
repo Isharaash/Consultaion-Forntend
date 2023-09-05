@@ -3,7 +3,12 @@
 * {
     box-sizing: border-box;
 }
+h1{
+    color: #00bcd4;
+    text-align: center;
+    padding: auto;
 
+}
 
 .search{
     width: 330px;
@@ -145,3 +150,18 @@ table>tbody>tr:nth-child(even) {
 table>tbody>tr:hover{
     filter: drop-shadow(0px 2px 6px #0002);
 }
+.backButton{
+    height: 55px;
+    width: 10%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 40;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background:  #00bcd4;
+  }
+  .backButton:hover {
+    background: rgb(88, 56, 250);
+  }
