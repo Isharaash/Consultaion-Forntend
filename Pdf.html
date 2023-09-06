@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Report Download and Display</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+ 
+    <section class="container">
+        <header>All Appointment Report </header>
+        <div class="form"> 
+    <button id="downloadPdfButton">Click And Download</button>
+    <button id="backButton">Back</button>
+</div>
+</section>
+
+    <script>
+    //Reoport of  All AppoimentsAll Job Seeker Appoiments
+        const downloadPdfButton = document.getElementById('downloadPdfButton');
+        const backButton = document.getElementById('backButton');
+
+backButton.addEventListener('click', () => {
+window.history.back(); // This will go back to the previous page in the browser's history.
+});
+        
+
+        downloadPdfButton.addEventListener('click', () => {
+            fetch('http://localhost:8080/api/v1/downloadPdf', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/pdf',
+                },
+                responseType: 'blob' // Set the response type to 'blob' to handle binary data
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                // Create a URL for the blob data
+                const url = window.URL.createObjectURL(blob);
+
+                // Display the PDF in a new tab or window
+                window.open(url, '_blank');
+
+                // Create a download link
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'appointment_report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error downloading PDF:', error));
+        });
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // This will go back to the previous page in the browser's history.
+        });
+
+        
+    </script>
+</body>
+</html>

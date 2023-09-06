@@ -73,6 +73,13 @@
     <script>
       const searchForm = document.getElementById('searchForm');
       const searchResultDiv = document.getElementById('searchResult');
+      const backButton = document.getElementById('backButton');
+
+backButton.addEventListener('click', () => {
+window.history.back(); // This will go back to the previous page in the browser's history.
+});
+
+
 const updateForm = document.getElementById('updateForm');
         searchForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -149,6 +156,9 @@ const updateForm = document.getElementById('updateForm');
                 console.error('Error updating data:', error);
                
             });
+        });
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // This will go back to the previous page in the browser's history.
         });
 
     
