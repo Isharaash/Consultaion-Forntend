@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email List</title>
+    <link rel="stylesheet" href="style4.css">
+   
+</head>
+<body>
+    <h1>Email List</h1>
+    <div id="emailList"></div>
+    
+    <button class="backButton" id="backButton">Back</button>
+
+    <script>
+        const backButton = document.getElementById('backButton');
+        // Function to fetch email data from the API
+        async function fetchEmailData() {
+            try {
+                const response = await fetch("http://localhost:8080/api/v1/AllEmail"); // Replace with your API endpoint
+                const data = await response.json();
+                
+                if (response.status === 202) {
+                    renderEmailList(data.content);
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                showError("An error occurred while fetching email data.");
+            }
+        }
+
+        // Function to render the list of emails
+        function renderEmailList(emailList) {
+            const emailListDiv = document.getElementById("emailList");
+            
+            if (emailList.length === 0) {
+                emailListDiv.innerHTML = "<p>No emails found.</p>";
+                return;
+            }
+
+            emailList.forEach(email => {
+                const emailDiv = document.createElement("div");
+                emailDiv.innerHTML = `
+                    <p onclick="toggleDetails(${email.id})">${email.tomail}</p>
+                    <div class="email-details" id="emailDetails_${email.id}">
+                        <p>Subject:<br> ${email.subject}</p>
+                        <p>Message: <br>${email.message}</p>
+                    </div>
+                    <hr>
+                `;
+                emailListDiv.appendChild(emailDiv);
+            });
+        }
+
+        // Function to toggle email details display
+        function toggleDetails(emailId) {
+            const emailDetails = document.getElementById(`emailDetails_${emailId}`);
+            if (emailDetails.style.display === "none" || emailDetails.style.display === "") {
+                emailDetails.style.display = "block";
+            } else {
+                emailDetails.style.display = "none";
+            }
+        }
+
+        // Function to display an error message
+        function showError(message) {
+            const emailListDiv = document.getElementById("emailList");
+            emailListDiv.innerHTML = `<p>Error: ${message}</p>`;
+        }
+
+        // Fetch email data when the page loads
+        fetchEmailData();
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // This will go back to the previous page in the browser's history.
+        });
+    </script>
+</body>
+</html>

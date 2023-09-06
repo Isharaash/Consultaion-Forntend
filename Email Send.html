@@ -37,7 +37,7 @@
     <script>
         document.getElementById('emailForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
-
+            const backButton = document.getElementById('backButton');
             const mailDTO = {
                 subject: document.getElementById('subject').value,
                 tomail: document.getElementById('tomail').value,
@@ -67,6 +67,10 @@
                     console.error('Error:', error);
                 });
         });
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back(); // This will go back to the previous page in the browser's history.
+        });
+
     </script>
 </body>
 </html>
