@@ -107,13 +107,75 @@ const updateForm = document.getElementById('updateForm');
                         document.getElementById('category').value = employee.category;
   
                       } else {
-                       alert(" Can't found with the given ID.")
+                     
                     }
                 })
                 .catch(error => {
                     console.error('Error searching for employee:', error);
                 });
-        });
+      
+
+
+        const searchInput2 = document.getElementById('searchInput').value;
+
+// Send a GET request to search for an employee by ID
+fetch(`http://localhost:8080/api/v1/searchschedulet/${searchInput2}`)
+    .then(response => response.json())
+    .then(data => {
+        // Clear previous search results
+        searchResultDiv.innerHTML = '';
+
+        if (data.code === "00" && data.message === "Success") {
+            const employee = data.content;
+            const employeeDetails ="";
+            searchResultDiv.innerHTML = employeeDetails;
+
+            document.getElementById('id').value = employee.id;
+            document.getElementById('name').value = employee.name;
+            document.getElementById('date').value = employee.date;
+            document.getElementById('day').value = employee.day;
+            document.getElementById('ftime').value = employee.ftime;
+            document.getElementById('ttime').value = employee.ttime;
+            document.getElementById('category').value = employee.category;
+
+          } else {
+          
+        }
+    })
+    .catch(error => {
+        console.error('Error searching for employee:', error);
+    });
+    const searchInput3 = document.getElementById('searchInput').value;
+
+    fetch(`http://localhost:8080/api/v1/searchcategoryschedulet/${searchInput2}`)
+    .then(response => response.json())
+    .then(data => {
+        // Clear previous search results
+        searchResultDiv.innerHTML = '';
+
+        if (data.code === "00" && data.message === "Success") {
+            const employee = data.content;
+            const employeeDetails ="";
+            searchResultDiv.innerHTML = employeeDetails;
+
+            document.getElementById('id').value = employee.id;
+            document.getElementById('name').value = employee.name;
+            document.getElementById('date').value = employee.date;
+            document.getElementById('day').value = employee.day;
+            document.getElementById('ftime').value = employee.ftime;
+            document.getElementById('ttime').value = employee.ttime;
+            document.getElementById('category').value = employee.category;
+
+          } else {
+       
+        }
+    })
+    .catch(error => {
+        console.error('Error searching for employee:', error);
+    });
+});
+
+
         updateForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
