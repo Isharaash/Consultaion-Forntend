@@ -101,6 +101,60 @@
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
+                
+        fetch(`http://localhost:8080/api/v1/searchschedulet/${searchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data');
+                    tableBody.innerHTML = ''; // Clear previous search results
+                    if (data.content) {
+                        const event = data.content;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${event.id}</td>
+                        <td>${event.name}</td>
+                        <td>${event.date}</td>
+                        <td>${event.day}</td>
+                        <td>${event.ftime}</td>
+                        <td>${event.ttime}</td>
+                        <td>${event.category}</td>
+                            
+                        `;
+                        tableBody.appendChild(row);
+                    } else {
+                      
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+                fetch(`http://localhost:8080/api/v1/searchcategoryschedulet/${searchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data');
+                    tableBody.innerHTML = ''; // Clear previous search results
+                    if (data.content) {
+                        const event = data.content;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${event.id}</td>
+                        <td>${event.name}</td>
+                        <td>${event.date}</td>
+                        <td>${event.day}</td>
+                        <td>${event.ftime}</td>
+                        <td>${event.ttime}</td>
+                        <td>${event.category}</td>
+                            
+                        `;
+                        tableBody.appendChild(row);
+                    } else {
+                        
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         });
 
         // Add an event listener to handle delete button clicks

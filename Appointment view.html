@@ -118,7 +118,105 @@
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
+
         });
+
+
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const searchId = document.getElementById('searchInput').value;
+            if (!searchId) {
+                alert('Please enter an ID to search.');
+                return;
+            }
+
+            // Fetch data from the Spring Boot API based on the search ID
+            fetch(`http://localhost:8080/api/v1/searchAppointment2/${searchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data');
+                    tableBody.innerHTML = ''; // Clear previous search results
+                    if (data.content) {
+                        const event = data.content;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${event.id}</td>
+                            <td>${event.fname}</td>
+                            <td>${event.address}</td>
+                            <td>${event.age}</td>
+                            <td>${event.dob}</td>
+                            <td>${event.sex}</td>
+                            <td>${event.category}</td>
+                            <td>${event.country}</td>
+                            <td>${event.date}</td>
+                            <td>${event.time}</td>
+                            <td>${event.email}</td>
+                            <td>${event.phone}</td>
+                            <td>
+                                <span class="action_btn">
+                                    
+                                    <a href="#" class="delete-button">Remove</a>
+                                </span>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    } else {
+                        alert('No matching record found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+        });
+
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const searchId = document.getElementById('searchInput').value;
+            if (!searchId) {
+                alert('Please enter an ID to search.');
+                return;
+            }
+
+            // Fetch data from the Spring Boot API based on the search ID
+            fetch(`http://localhost:8080/api/v1/searchAppointment3/${searchId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data');
+                    tableBody.innerHTML = ''; // Clear previous search results
+                    if (data.content) {
+                        const event = data.content;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${event.id}</td>
+                            <td>${event.fname}</td>
+                            <td>${event.address}</td>
+                            <td>${event.age}</td>
+                            <td>${event.dob}</td>
+                            <td>${event.sex}</td>
+                            <td>${event.category}</td>
+                            <td>${event.country}</td>
+                            <td>${event.date}</td>
+                            <td>${event.time}</td>
+                            <td>${event.email}</td>
+                            <td>${event.phone}</td>
+                            <td>
+                                <span class="action_btn">
+                                    
+                                    <a href="#" class="delete-button">Remove</a>
+                                </span>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    } else {
+                        alert('No matching record found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+        });
+
+
         // Add an event listener to handle delete button clicks
         document.getElementById('data').addEventListener('click', (event) => {
             if (event.target && event.target.tagName.toLowerCase() === 'a' && event.target.classList.contains('delete-button')) {
